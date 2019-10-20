@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="display-4 text-center m-4">{{title}}</h1>
+
+    {% if users|length == 0 %}
+        <p class="lead">No users yet</p>
+    {% else %}
+
+        {% for user in users %}
+            <h2>
+                <a href="/blog?user={{user.id}}" class="pt-1 pr-5 pb-2 pl-5 mt-2">
+                    <small class="text-center">{{user.username}}</small>
+                </a>
+            </h2>
+            <!-- <p class="mb-5 p-4 pl-5">{{user.body}}</p> -->
+        {% endfor %}
+
+    {% endif %}
+
+{% endblock %}

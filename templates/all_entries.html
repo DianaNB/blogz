@@ -3,13 +3,13 @@
 {% block content %}
     <h1>All Blog Entries</h1>
     <ul>
-        {% for entry in all_entries %}
+        {% for blog in blogs %}
             <li>
                 <h2>
-                    <a href="/blog?id={{ entry.id }}">{{ entry.title }}</a>
+                    <a href="/blog?id={{ blog.id }}">{{ blog.title }}</a>
                 </h2>
-                <p>{{ entry.body }}</p>
-                <p>{{ entry.created }}</p>
+                <p>{{ blog.body }}</p>
+                <p>{{ blog.created }}</p>
             </li>
         {% endfor %}
     </ul>

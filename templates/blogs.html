@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+{% if blogposts %}
+    <h1 class="display-4 text-center m-4">{{title}}</h1>
+
+    {% if blogposts|length == 0 %}
+        <p class="lead">No blog posts yet</p>
+    {% else %}
+
+        {% for blogpost in blogposts %}
+        <article class="mb-5">
+            <h2>
+                <a href="/blog?id={{blogpost.id}}" class="text-dark bg-light pt-2 pr-3 pb-2 pl-5 mt-1">
+                    {{blogpost.title}}
+                </a>
+            </h2>
+            <p class="pt-4 pb-2 pl-5">{{blogpost.body}}</p>
+            
+
+            <a href="/blog?user={{blogpost.owner_id}}" class="pt-2 pr-5 pb-2 pl-5 mt-1">
+                <small class="text-muted">Written by {{blogpost.username}}</small>
+            </a>
+            <!-- <hr class="mb-5"> -->
+        </article>
+        {% endfor %}
+
+    {% endif %}
+
+{% else %}
+
+<h1 class="display-4 text-center mt-4 mb-2">404</h1>
+
+<p class="text-center mt-4">Page not found.</p>
+    
+{% endif %}
+
+{% endblock %}

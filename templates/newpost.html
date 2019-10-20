@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="display-4 text-center m-4">{{title}}</h1>
+
+<form action="newpost" method="post">
+    <div class="form-group">
+        <label for="blog-post-title">Title</label>
+        {% with messages = get_flashed_messages(category_filter=["title-extant"]) %}
+            {% if messages %}
+                {% for message in messages %}
+                    <input type="text" name="blog-post-title" class="form-control"
+                        id="blog-post-title" placeholder="Your New Title Here" value="{{ message }}">
+                {% endfor %}
+            {% else %}
+                <input type="text" name="blog-post-title" class="form-control" id="blog-post-title" 
+                        placeholder="Your New Title Here">
+            {% endif %}
+        {% endwith %}
+
+        {% with messages = get_flashed_messages(category_filter=["title-error"]) %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="text-danger pl-2 pt-1">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class="form-group">
+        <label for="blog-post-body">Content</label>
+            <!-- Show filled or unfilled depending on whether there's a flashed message -->
+            {% with messages = get_flashed_messages(category_filter=["body-extant"]) %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <textarea name="blog-post-body" class="form-control" id="blog-post-body" 
+                                placeholder="Write your new blog post here.">{{ message }}</textarea>
+                    {% endfor %}
+                {% else %}
+                        <textarea name="blog-post-body" class="form-control" id="blog-post-body" 
+                                placeholder="Write your new blog post here."></textarea>
+                {% endif %}
+            {% endwith %}
+
+        <!-- Show error if there is a flashed message -->
+            {% with messages = get_flashed_messages(category_filter=["body-error"]) %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="text-danger pl-2 pt-1">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+    </div>
+
+    <div class="form-group float-right">
+        <input type="submit" value="Add Post" class="btn btn-primary" />
+        <a href="/" class="btn btn-outline-danger">Cancel</a>
+    </div>
+</form>
+
+{% endblock %}

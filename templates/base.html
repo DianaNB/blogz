@@ -1,31 +1,78 @@
 <!doctype html>
-<html>
-    <head>
-        <title>{{title}}</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    </head>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+    <style>
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
+
+    <title>{{title}} | This is Our Blog</title>
+</head>
+
 <body>
-    <!-- main element is a flexbox  -->
-    <main>
-        <nav>
-            <a href='/blog'>List all entries<br />(oldest-first)</a>
-            <a href='/blog?sort=newest'>List all entries<br />(newest-first)</a>
-            <a href='/new_entry'>Create new entry</a>
-        </nav>
 
-        <div class="container">
-            <!-- No message categories  -->
-            {% with messages = get_flashed_messages() %}
-                {% for message in messages %}
-                    <div class="flash_message">{{message|safe}}</div>
-                {% endfor %}
-            {% endwith %}
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark static-top">
+        <a class="navbar-brand" href="/">This is Our Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarDefault" aria-controls="navbarDefault"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            {% block content %}
-            {% endblock %}
+        <div class="collapse navbar-collapse" id="navbarDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{index_active}}">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item {{blog_active}}">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+                {% if session['username'] %}
+                    <li class="nav-item {{newpost_active}}">
+                        <a class="nav-link" href="/newpost">New Post</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item {{signup_active}}">
+                        <a class="nav-link" href="/signup">Sign Up</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav navbar-right">
+                {% if session['username'] %}
+                    <li class="nav-item {{logout_active}}">
+                        <a class="nav-link" href="/logout">Log Out</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item {{login_active}}">
+                        <a class="nav-link" href="/login">Log In</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
 
-        </div> <!-- .container -->
-    </main>
+    <main role="main" class="container">
+        {% block content %}
+        {% endblock %}
+    </main><!-- /.container -->
 
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
